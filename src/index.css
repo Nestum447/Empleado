@@ -1,4 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  table {
+    @apply w-full border-collapse mt-5;
+  }
+
+  th, td {
+    @apply border border-gray-300 px-6 py-3 text-left;
+  }
+
+  th:nth-child(3),
+  td:nth-child(3) {
+    @apply text-center w-32; /* 👈 Centra y da ancho fijo a "Horas" */
+  }
+
+  th {
+    @apply bg-gray-100;
+  }
+}
 
