@@ -7,9 +7,10 @@ function App() {
   const [fechaInicial, setFechaInicial] = useState("");
   const [fechaFinal, setFechaFinal] = useState("");
 
-  // Cargar Excel desde public/empleados.xlsx
+  // Cargar Excel desde public/empleados.xlsx con cache-busting
   useEffect(() => {
-    fetch(process.env.PUBLIC_URL + "/empleados.xlsx")
+    const timestamp = new Date().getTime(); // Para evitar cache
+    fetch(`${process.env.PUBLIC_URL}/empleados.xlsx?${timestamp}`)
       .then((res) => res.arrayBuffer())
       .then((ab) => {
         const wb = XLSX.read(ab, { type: "array" });
@@ -27,13 +28,8 @@ function App() {
     let cumpleEmpleado = empleado ? row.Empleado === empleado : true;
 
     let cumpleFecha = true;
-    if (fechaInicial) {
-      cumpleFecha = new Date(row.Fecha) >= new Date(fechaInicial);
-    }
-    if (fechaFinal) {
-      cumpleFecha =
-        cumpleFecha && new Date(row.Fecha) <= new Date(fechaFinal);
-    }
+    if (fechaInicial) cumpleFecha = new Date(row.Fecha) >= new Date(fechaInicial);
+    if (fechaFinal) cumpleFecha = cumpleFecha && new Date(row.Fecha) <= new Date(fechaFinal);
 
     return cumpleEmpleado && cumpleFecha;
   });
