@@ -32,7 +32,8 @@ function App() {
     return cumpleEmpleado && cumpleFecha;
   });
 
-  const resumen = dataFiltrada.reduce((acc, curr) => acc + (curr.Horas || 0), 0);
+const resumen = dataFiltrada.reduce((acc, curr) => acc + (Number(curr.Horas) || 0), 0);
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
