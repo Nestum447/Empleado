@@ -2,7 +2,7 @@
   "name": "excel-empleados",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://<Nestum447>.github.io/<TU-REPO>",
+  "homepage": "https://nestum447.github.io/Empleado",
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
