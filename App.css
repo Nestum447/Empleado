@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+<table className="tabla-empleados">
+  <thead>
+    <tr>
+      <th>Empleado</th>
+      <th>Fecha</th>
+      <th className="col-horas">Horas</th>
+    </tr>
+  </thead>
+  <tbody>
+    {dataFiltrada.map((row, index) => (
+      <tr key={index}>
+        <td>{row.Empleado}</td>
+        <td>{row.Fecha}</td>
+        <td className="col-horas">{row.Horas}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
