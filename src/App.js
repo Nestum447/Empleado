@@ -7,11 +7,12 @@ function App() {
   const [fechaInicial, setFechaInicial] = useState("");
   const [fechaFinal, setFechaFinal] = useState("");
 
-  // Cargar Excel desde public/empleados.xlsx con cache-busting
+  // URL pública del Excel en GitHub
+  const EXCEL_URL = "https://raw.githubusercontent.com/nestum447/Empleado/main/empleados.xlsx";
+
   useEffect(() => {
-    const timestamp = new Date().getTime(); // Para evitar cache
-    fetch(`${process.env.PUBLIC_URL}/empleados.xlsx?${timestamp}`)
-      .then((res) => res.arrayBuffer())
+    fetch(EXCEL_URL)
+      .then((res) => res.arrayBuffer()) // importante para XLSX
       .then((ab) => {
         const wb = XLSX.read(ab, { type: "array" });
         const ws = wb.Sheets[wb.SheetNames[0]];
@@ -23,14 +24,11 @@ function App() {
 
   const empleados = [...new Set(data.map((d) => d.Empleado))];
 
-  // Filtrar por empleado y rango de fechas
   const dataFiltrada = data.filter((row) => {
     let cumpleEmpleado = empleado ? row.Empleado === empleado : true;
-
     let cumpleFecha = true;
     if (fechaInicial) cumpleFecha = new Date(row.Fecha) >= new Date(fechaInicial);
     if (fechaFinal) cumpleFecha = cumpleFecha && new Date(row.Fecha) <= new Date(fechaFinal);
-
     return cumpleEmpleado && cumpleFecha;
   });
 
