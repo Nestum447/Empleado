@@ -5,16 +5,17 @@ function App() {
   const [data, setData] = useState([]);
   const [empleado, setEmpleado] = useState("");
 
-  // Cargar el Excel desde /public
+  // Cargar Excel desde public/empleados.xlsx al iniciar la app
   useEffect(() => {
     fetch(process.env.PUBLIC_URL + "/empleados.xlsx")
-      .then((res) => res.arrayBuffer())
+      .then((res) => res.arrayBuffer())  // ✅ arrayBuffer para XLSX
       .then((ab) => {
         const wb = XLSX.read(ab, { type: "array" });
         const ws = wb.Sheets[wb.SheetNames[0]];
         const jsonData = XLSX.utils.sheet_to_json(ws);
         setData(jsonData);
-      });
+      })
+      .catch((err) => console.error("Error al leer Excel:", err));
   }, []);
 
   const empleados = [...new Set(data.map((d) => d.Empleado))];
@@ -27,7 +28,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-6">
+      <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-2xl p-6">
         <h1 className="text-3xl font-bold text-blue-700 mb-6 text-center">
           📊 Control de Horas por Empleado
         </h1>
@@ -49,7 +50,7 @@ function App() {
           </div>
         )}
 
-        {dataFiltrada.length > 0 && (
+        {dataFiltrada.length > 0 ? (
           <>
             <h2 className="text-xl font-semibold mb-4 text-center">
               Total horas:{" "}
@@ -80,6 +81,8 @@ function App() {
               </table>
             </div>
           </>
+        ) : (
+          <p className="text-center text-gray-500 mt-6">Cargando datos...</p>
         )}
       </div>
     </div>
