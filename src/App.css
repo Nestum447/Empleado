@@ -1,3 +1,4 @@
+/* estilos generales */
 body {
   font-family: Arial, sans-serif;
   background: #f9f9f9;
@@ -5,4 +6,32 @@ body {
 
 h1 {
   color: #333;
+}
+
+/* estilos para la tabla de empleados */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px 24px; /* más espacio entre columnas */
+  text-align: left;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  text-align: center; /* centra la columna Horas */
+  width: 120px;       /* ancho fijo para columna Horas */
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+/* filas alternadas para aspecto profesional */
+tr:nth-child(even) td {
+  background-color: #fafafa;
 }
