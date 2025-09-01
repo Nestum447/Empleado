@@ -1,10 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
+/* 🎨 Estilos personalizados para la tabla */
 @layer base {
   table {
     @apply w-full border-collapse mt-5;
@@ -16,11 +14,14 @@
 
   th:nth-child(3),
   td:nth-child(3) {
-    @apply text-center w-32; /* 👈 Centra y da ancho fijo a "Horas" */
+    @apply text-center w-32; /* Centra y da ancho fijo a la columna "Horas" */
   }
 
   th {
     @apply bg-gray-100;
   }
-}
 
+  tr:nth-child(even) td {
+    @apply bg-gray-50; /* Filas alternadas (striped) */
+  }
+}
